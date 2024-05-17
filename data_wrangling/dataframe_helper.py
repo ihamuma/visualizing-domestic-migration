@@ -19,3 +19,11 @@ def diff_columns(list1, list2):
     diff1 = set1 - set2
     diff2 = set2 - set1
     return diff1, diff2
+
+def convert_columns_to_float(df, columns_to_convert):
+    """Helper function for changing objects or strings of type '23,67' to float"""
+    
+    for column in columns_to_convert:
+        df[column] = df[column].str.replace(',', '.').astype(float)
+    
+    return df

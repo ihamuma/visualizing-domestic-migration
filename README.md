@@ -18,3 +18,4 @@ Libraries used in the project:
 - chardet (Finnish tax authority uses some random ass codec)
 - csv-detective (Finnish tax authority uses some random ass separator)
 - os
+- requests
