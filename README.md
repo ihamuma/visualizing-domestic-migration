@@ -12,3 +12,9 @@ Just don't try to commit - my professor is already mad it me as is, so I would p
 So yeah, cool, see you around.
 
 @ihamuma
+
+Libraries used in the project:
+- Pandas (duh)
+- chardet (Finnish tax authority uses some random ass codec)
+- csv-detective (Finnish tax authority uses some random ass separator)
+- os
