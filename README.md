@@ -21,3 +21,4 @@ Libraries used in the project:
 - os
 - requests
 - pyarrow (for fun, to enable parquet file usage)
+- matplotlib (honestly thought I was too cool to ever use this - always good to be proven wrong!)
