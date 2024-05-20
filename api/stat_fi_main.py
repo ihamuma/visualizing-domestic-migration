@@ -1,4 +1,4 @@
-from .stat_fi_api_helpers import get_migration_data, get_employment_data
+from .stat_fi_api_helpers import get_migration_data, get_employment_data, fix_dataframe_dtypes
 from .stat_fi_queries import migration_url, migration_query, age_values, employment_url, employment_query
 import os
 
@@ -12,7 +12,8 @@ def verify_and_create_files():
         migration_ages = age_values["selection"]["values"]
 
         migration_df = get_migration_data(migration_url, migration_query, migration_ages)
-        migration_df = migration_df = migration_df[migration_df['Region of arrival'] != migration_df['Region of departure']]
+        migration_df = fix_dataframe_dtypes(migration_df)
+        migration_df = migration_df[migration_df['Region of arrival'] != migration_df['Region of departure']]
         migration_df.to_parquet(migration_file_path, engine='pyarrow')
 
         print(f'Migration data successfully written to {migration_file_path}')
@@ -23,6 +24,7 @@ def verify_and_create_files():
         print('No migration data file found. Creating API request.')
         
         employment_df = get_employment_data(employment_url, employment_query)
+        employment_df = fix_dataframe_dtypes(employment_df)
         employment_df.to_parquet(employment_file_path, engine='pyarrow')
 
         print(f'Employment data successfully written to {employment_file_path}')
