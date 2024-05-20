@@ -58,8 +58,21 @@ def create_dataframe_from_stat_fi_format(json_data):
     return pd.DataFrame(data_points)
 
 def fix_dataframe_dtypes(df):
-    return df.astype({'Year': 'int64',
-                      'Value': 'int64'})
+    if 'Origin' in df.columns:
+        return df.astype({'Year': 'int64',
+                          'Region of arrival': 'string',
+                          'Region of departure': 'string',
+                          'Origin': 'string',
+                          'Sex': 'string',
+                          'Age': 'string',
+                          'Value': 'int64'
+                        })
+    else:
+        return df.astype({'Year': 'int64',
+                          'Area': 'string',
+                          'Industry': 'string',
+                          'Sex': 'string',
+                          'Value': 'int64'})
 
 def write_to_json_file(data, file_name):
     file_path = os.path.join('raw_data', file_name)
