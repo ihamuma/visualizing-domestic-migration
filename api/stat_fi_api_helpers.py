@@ -3,23 +3,17 @@ import requests
 import json
 import os
 
-import stat_fi_query
-write_to_file = False
-
-url = 'https://pxdata.stat.fi:443/PxWeb/api/v1/en/StatFin/muutl/statfin_muutl_pxt_11a5.px'
-
-json_query = stat_fi_query.json_query
-
-def stat_fi_api_request(url, json_query, write_to_file, file_name):
+def stat_fi_api_request(url, json_query):
     response = requests.post(url, json=json_query)
 
     if response.status_code == 200:
+        print('API request was successful.')
         data = response.json()
-        if write_to_file:
-            return 'API request was successful. ' + write_to_file(data, file_name)
-        return 'API request was successful.'
+        return data
     else:
-        return f"Request failed with status code {response.status_code}"
+        print(f"API request failed with status code {response.status_code}")
+        print(response.text)
+        return None
 
 def write_to_json_file(data, file_name):
     file_path = os.path.join('raw_data', file_name)
@@ -29,4 +23,13 @@ def write_to_json_file(data, file_name):
             json.dump(data, new_file, indent=4)
         return f"Data has been written to {file_path}"
     except Exception as e:
-        return 'Writing to file failed due to Excpetion ' + str(e)
+        return 'Writing to file failed due to Exception ' + str(e)
+    
+def create_dataframe_from_stat_fi_format(json_data):
+    columns = [col['text'] for col in json_data['columns']]
+    data_points = [
+        {**dict(zip(columns, d['key'])), 'Value': d['values'][0]}
+        for d in json_data['data']
+    ]
+
+    return pd.DataFrame(data_points)

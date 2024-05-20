@@ -110,7 +110,7 @@ migration_query = {
                     "response": {
                         "format": "json"
                     }
-                    }
+                }
 
 age_values = {
                 "code": "Ikä",
