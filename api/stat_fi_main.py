@@ -12,6 +12,7 @@ def verify_and_create_files():
         migration_ages = age_values["selection"]["values"]
 
         migration_df = get_migration_data(migration_url, migration_query, migration_ages)
+        migration_df = migration_df = migration_df[migration_df['Region of arrival'] != migration_df['Region of departure']]
         migration_df.to_parquet(migration_file_path, engine='pyarrow')
 
         print(f'Migration data successfully written to {migration_file_path}')
