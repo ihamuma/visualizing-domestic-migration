@@ -19,3 +19,4 @@ Libraries used in the project:
 - csv-detective (Finnish tax authority uses some random ass separator)
 - os
 - requests
+- pyarrow (for fun, to enable parquet file usage)
