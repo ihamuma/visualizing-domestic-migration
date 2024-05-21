@@ -23,3 +23,5 @@ Libraries used in the project:
 - pyarrow (for fun, to enable parquet file usage)
 - matplotlib (honestly thought I was too cool to ever use this - always good to be proven wrong!)
 - seaborn (for those sweet visuals)
+- numpy
+- sklearn (for PCA)
