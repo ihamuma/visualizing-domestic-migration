@@ -20,5 +20,5 @@ transformed_migration_df = transformed_migration_df.fillna(0)
 print(transformed_migration_df.describe())
 print(transformed_migration_df.head())
 
-pca_by_region_file_path = os.path.join('processed_data', f'migration_transformed_pca_by_region_{year}.parquet')
-#transformed_migration_df.to_parquet(pca_by_region_file_path, engine='pyarrow')
+pca_by_region_file_path = os.path.join('processed_data', f'migration_transformed_incoming_pca_by_region_{year}.parquet')
+transformed_migration_df.to_parquet(pca_by_region_file_path, engine='pyarrow')

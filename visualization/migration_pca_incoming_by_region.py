@@ -36,6 +36,6 @@ plt.xticks(fontproperties=prop)
 plt.yticks(fontproperties=prop)
 plt.title(f'Domestic Migration by Region, {year} (PCA)', fontproperties=prop)
 
-plt.savefig(f'visualization/results/PCA Migration by Region {year}.png')
+plt.savefig(f'visualization/results/PCA Migration by Region, Incoming {year}.png')
 
 plt.show()
