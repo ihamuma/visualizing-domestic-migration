@@ -1,2 +1,5 @@
-raw_data/*
-processed_data/*
+# Ignore all created visualisations
+*.png
+
+# Ignore all source data files
+*.parquet
