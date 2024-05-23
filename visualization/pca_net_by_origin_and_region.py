@@ -4,10 +4,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
-pca_by_year_df = pd.read_parquet('processed_data/migration_transformed_pca_by_year.parquet')
+year = '2021'
+origins = ('21', '22')
 
-years = pca_by_year_df['Year'].to_list()
-values = pca_by_year_df.drop(columns=['Year']).values.tolist()
+pca_by_region_df = pd.read_parquet(f'processed_data/pca_by_region_{origins[0]}-{origins[1]}_{year}.parquet')
+
+regions = pca_by_region_df['Region'].to_list()
+values = pca_by_region_df.drop(columns=['Region']).values.tolist()
 
 pca = decomposition.PCA(n_components=2)
 pca.fit(values)
@@ -28,12 +31,12 @@ fontManager.addfont(font_path)
 prop = FontProperties(fname=font_path)
 
 for i, (x, y) in enumerate(zip(x_coords, y_coords)):
-    plt.text(x, y, str(years[i]), color='red', fontsize=8, fontproperties=prop)
+    plt.text(x, y, str(regions[i]), color='red', fontsize=8, fontproperties=prop)
 
 plt.xticks(fontproperties=prop)
 plt.yticks(fontproperties=prop)
-plt.title('Domestic Migration 2002-2022 (PCA)', fontproperties=prop)
+plt.title(f'Domestic Migration by Region, Origins {origins[0]}, {origins[1]} - {year} (PCA)', fontproperties=prop)
 
-plt.savefig('visualization/results/PCA Migration 2002-2022.png')
+plt.savefig(f'visualization/results/PCA Migration by Region, Incoming {origins[0]}-{origins[1]} {year}.png')
 
 plt.show()

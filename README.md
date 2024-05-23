@@ -15,13 +15,17 @@ Peace and love,
 @ihamuma
 
 Libraries used in the project:
-- Pandas (duh)
+- pandas (duh)
 - chardet (Finnish tax authority uses some random ass codec)
 - csv-detective (Finnish tax authority uses some random ass separator)
 - os
 - requests
 - pyarrow (for fun, to enable parquet file usage)
-- matplotlib (honestly thought I was too cool to ever use this - always good to be proven wrong!)
-- seaborn (for those sweet visuals)
+- matplotlib (thought I was too cool to ever use this - always good to be proven wrong!)
+- seaborn (for sweet(er) visuals)
 - numpy
 - sklearn (for PCA)
+- networkx (for, you know. graphs and stuff.)
+- gravis (for making networkx graphs interactive)
+
+NB: This project stores data in .parquet, mainly due to personal grievances with .csv not maintaining data types. Many IDEs do not support viewing these by default. In case you wish to see the data in a tabular format, please use an appropriate viewer, or e.g. the VSCode parquet-viewer extension.

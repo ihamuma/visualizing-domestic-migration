@@ -6,10 +6,10 @@ import pandas as pd
 
 year = '2021'
 
-pca_by_region_df = pd.read_parquet(f'processed_data/migration_transformed_pca_by_region_{year}.parquet')
+pca_by_region_df = pd.read_parquet(f'processed_data/pca_by_region_{year}.parquet')
 
-regions = pca_by_region_df['Region of arrival'].to_list()
-values = pca_by_region_df.drop(columns=['Region of arrival']).values.tolist()
+regions = pca_by_region_df['Region'].to_list()
+values = pca_by_region_df.drop(columns=['Region']).values.tolist()
 
 pca = decomposition.PCA(n_components=2)
 pca.fit(values)
@@ -36,6 +36,6 @@ plt.xticks(fontproperties=prop)
 plt.yticks(fontproperties=prop)
 plt.title(f'Domestic Migration by Region, {year} (PCA)', fontproperties=prop)
 
-plt.savefig(f'visualization/results/PCA Migration by Region, Incoming {year}.png')
+plt.savefig(f'visualization/results/PCA Migration by Region {year}.png')
 
 plt.show()
