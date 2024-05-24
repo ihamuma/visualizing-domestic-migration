@@ -9,7 +9,7 @@ image_path = 'visualization/viz_resources/suomen-maakunnat-kartta-scaled-without
 
 image = Image.open(image_path)
 
-year = '2021'
+year = '2019'
 
 migration_df = pd.read_parquet(f'processed_data/directional_graph_{year}.parquet')
 edges = edges_from_df(migration_df)

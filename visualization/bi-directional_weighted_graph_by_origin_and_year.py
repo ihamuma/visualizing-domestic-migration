@@ -9,8 +9,8 @@ image_path = 'visualization/viz_resources/suomen-maakunnat-kartta-scaled-without
 
 image = Image.open(image_path)
 
-year = '2021'
-origins = ('11', '12')
+year = '2020'
+origins = ('21', '22')
 
 migration_df = pd.read_parquet(f'processed_data/directional_graph_{origins[0]}-{origins[1]}_{year}.parquet')
 edges = edges_from_df(migration_df)
@@ -98,7 +98,7 @@ nx.draw_networkx_labels(G, pos, font_size=5, font_family='serif', font_color='re
 #nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos=0.3, fontproperties=prop)
 #nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos=0.7, fontproperties=prop)
 
-plt.title(f"Inter-regional migration, {origins[0]}-{origins[1]} - {year}", fontproperties=prop)
+plt.title(f"Inter-regional migration by persons of foreign origin {year}", fontproperties=prop)
 plt.savefig(f'visualization/results/Overlayed Weighted Graph Migration {origins[0]}-{origins[1]} {year}.png', dpi=300)
 
 plt.show()
