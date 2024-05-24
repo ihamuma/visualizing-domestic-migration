@@ -10,7 +10,7 @@ image_path = 'visualization/viz_resources/suomen-maakunnat-kartta-scaled-without
 image = Image.open(image_path)
 
 year = '2021'
-origins = ('21', '22')
+origins = ('11', '12')
 
 migration_df = pd.read_parquet(f'processed_data/directional_graph_{origins[0]}-{origins[1]}_{year}.parquet')
 edges = edges_from_df(migration_df)
@@ -65,18 +65,22 @@ for u, v in G.edges():
                                edge_color=edge_color, 
                                width=G[u][v]['weight'] * 0.001, 
                                connectionstyle=f'arc3,rad={rad}',
-                               arrows=True)
+                               arrows=True,
+                               arrowsize= min(G[u][v]['weight'] * 0.01, 8))
         nx.draw_networkx_edges(G, pos, edgelist=[(v, u)], 
                                edge_color='green' if edge_color == 'red' else 'red', 
                                width=G[v][u]['weight'] * 0.001, 
                                connectionstyle=f'arc3,rad={rad}',
-                               arrows=True)
+                               arrows=True,
+                               arrowsize= min(G[u][v]['weight'] * 0.01, 8))
         
         drawn_edges.add((u, v))
         drawn_edges.add((v, u))
     elif (u, v) not in drawn_edges:
         edge_color = 'green'
-        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], edge_color=edge_color, width=G[u][v]['weight'] * 0.001)
+        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], 
+                               edge_color=edge_color, 
+                               width=G[u][v]['weight'] * 0.001)
         
         drawn_edges.add((u, v))
 

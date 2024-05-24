@@ -27,5 +27,6 @@ Libraries used in the project:
 - sklearn (for PCA)
 - networkx (for, you know. graphs and stuff.)
 - gravis (for making networkx graphs interactive)
+- sammon (https://github.com/tompollard/sammon/)
 
 NB: This project stores data in .parquet, mainly due to personal grievances with .csv not maintaining data types. Many IDEs do not support viewing these by default. In case you wish to see the data in a tabular format, please use an appropriate viewer, or e.g. the VSCode parquet-viewer extension.
