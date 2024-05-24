@@ -9,10 +9,15 @@ image_path = 'visualization/viz_resources/suomen-maakunnat-kartta-scaled-without
 
 image = Image.open(image_path)
 
-year = '2021'
-origins = ('11', '12')
+year = '2022'
+selected_regions = ['MK01', 'MK02', 'MK06', 
+                    'MK13', 'MK09', 'MK10', 
+                    'MK11', 'MK12', 'MK14', 
+                    'MK18', 'MK19', 'MK21']
 
-migration_df = pd.read_parquet(f'processed_data/directional_graph_{origins[0]}-{origins[1]}_{year}.parquet')
+migration_df = pd.read_parquet(f'processed_data/directional_graph_{year}.parquet')
+migration_df = migration_df[migration_df['Region of arrival'].isin(selected_regions)]
+migration_df = migration_df[migration_df['Region of departure'].isin(selected_regions)]
 edges = edges_from_df(migration_df)
 
 G = nx.DiGraph()
@@ -65,20 +70,18 @@ for u, v in G.edges():
                                edge_color=edge_color, 
                                width=G[u][v]['weight'] * 0.001, 
                                connectionstyle=f'arc3,rad={rad}',
-                               arrowsize= min(G[u][v]['weight'] * 0.01, 8))
+                               arrowsize=min(G[v][u]['weight'] * 0.01, 8))
         nx.draw_networkx_edges(G, pos, edgelist=[(v, u)], 
                                edge_color='green' if edge_color == 'red' else 'red', 
                                width=G[v][u]['weight'] * 0.001, 
                                connectionstyle=f'arc3,rad={rad}',
-                               arrowsize= min(G[u][v]['weight'] * 0.01, 4))
+                               arrowsize=min(G[v][u]['weight'] * 0.01, 8))
         
         drawn_edges.add((u, v))
         drawn_edges.add((v, u))
     elif (u, v) not in drawn_edges:
         edge_color = 'green'
-        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], 
-                               edge_color=edge_color, 
-                               width=G[u][v]['weight'] * 0.001)
+        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], edge_color=edge_color, width=G[u][v]['weight'] * 0.001)
         
         drawn_edges.add((u, v))
 
@@ -98,7 +101,7 @@ nx.draw_networkx_labels(G, pos, font_size=5, font_family='serif', font_color='re
 #nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos=0.3, fontproperties=prop)
 #nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos=0.7, fontproperties=prop)
 
-plt.title(f"Inter-regional migration, {origins[0]}-{origins[1]} - {year}", fontproperties=prop)
-plt.savefig(f'visualization/results/Overlayed Weighted Graph Migration {origins[0]}-{origins[1]} {year}.png', dpi=300)
+plt.title(f"Inter-regional migration {year}, limited regions", fontproperties=prop)
+plt.savefig(f'visualization/results/Selected Regions Overlayed Weighted Graph Migration {year}.png', dpi=300)
 
 plt.show()
