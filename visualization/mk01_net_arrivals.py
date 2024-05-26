@@ -32,5 +32,5 @@ plt.yticks(fontproperties=prop)
 plt.ylabel('Net Migration', fontproperties=prop)
 plt.title('Net Migration - MK01 (Uusimaa)', fontproperties=prop)
 
-plt.savefig('visualization/results/MK01 Net Migration.png')
+plt.savefig('visualization/results/MK01 Net Migration.png', dpi=300)
 plt.show()

@@ -17,7 +17,7 @@ edges = edges_from_df(migration_df)
 
 G = nx.DiGraph()
 
-# Reverses order created in df - data set is originally in arrived to, departed from
+# Reverses order created in df - data set is originally in arrived to, departed from.
 # Without reversal, draws arcs in mistaken directions
 for u, v, w in edges:
     G.add_edge(v, u, weight=w)

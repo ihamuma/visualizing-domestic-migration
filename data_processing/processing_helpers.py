@@ -10,4 +10,4 @@ def decrypt_migration_column_name(column_name: str):
 
 
 
-print(decrypt_migration_column_name("MK02-11-1-0-17"))
+#print(decrypt_migration_column_name("MK02-11-1-0-17"))

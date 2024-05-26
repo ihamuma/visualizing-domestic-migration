@@ -1,3 +1,4 @@
+from tqdm import tqdm
 import pandas as pd
 import requests
 import json
@@ -7,7 +8,7 @@ import os
 def get_migration_data(url, json_query, age_ranges):
     migration_dfs = []
 
-    for age in age_ranges:
+    for age in tqdm(age_ranges):
             age_query = form_age_query(age)
             json_query["query"].append(age_query)
             json_data = stat_fi_api_request(url, json_query)
@@ -19,7 +20,8 @@ def get_migration_data(url, json_query, age_ranges):
 
 
 def form_age_query(age):
-    return {"code": "Ikä",
+    return {
+            "code": "Ikä",
             "selection": {
                  "filter": "item",
                  "values": [
