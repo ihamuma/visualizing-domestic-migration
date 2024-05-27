@@ -2,7 +2,7 @@ Hello, world!
 
 This is a repository visualizing domestic migration in Finland using Python and its libraries. A complete list of the libraries used in this project can be found at the bottom of this file, and it is recommended all are installed before attempting to run any of the code found in this repository.
 
-As of the most recent edit to this readme, the running of the project in its entirety is unfortunately rather clunky due to time restraints. The next step in development is decomposing the methods in data_processing and visualization to feature less repeated code and a more OO approach, leading to a concise set of packaged similar to the current api directory.
+As of the most recent edit to this readme, the running of the project in its entirety is unfortunately rather clunky due to time restraints. The next step in development is decomposing the methods in data_processing and visualization to feature less repeated code and a more OO approach, leading to a concise set of packages similar to the current api directory.
 
 Nevertheles, initialising the project from scratch is easy enough by running main.py. This validates the existence of the necessary data files and, finding them lacking, creates the necessary API requests to the stat.fi API.
 Based on this data, the files in data_processing can now be run. Each script performs one or multiple transformations necessary for the visualization of the data with the scripts available in visualization, with corresponding naming practices signifying the corresponding data_processing and visualization files.
