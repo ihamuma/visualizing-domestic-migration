@@ -41,7 +41,6 @@ def stat_fi_api_request(url, json_query):
     response = requests.post(url, json=json_query)
 
     if response.status_code == 200:
-        print('API request was successful.')
         data = response.json()
         return data
     else:
