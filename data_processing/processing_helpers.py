@@ -7,7 +7,3 @@ def decrypt_migration_column_name(column_name: str):
         'Age': split_values[3]
     }
     return decrypted_dict
-
-
-
-#print(decrypt_migration_column_name("MK02-11-1-0-17"))

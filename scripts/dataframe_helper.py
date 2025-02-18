@@ -1,8 +1,9 @@
 def check_dataframes_for_unidentical_columns(dict_of_dfs, reference_df_key=None):
     """Returns dict in dict of differences between the columns one of the dataframes in a provided dict and all the others.
     Can specify key for reference df if needed or automatically use first one."""
-    
-    reference_key = reference_df_key if reference_df_key else next(iter(dict_of_dfs))
+
+    reference_key = reference_df_key if reference_df_key else next(
+        iter(dict_of_dfs))
     ref_cols = dict_of_dfs[reference_key].columns
     unmatching_columns = {}
 
@@ -13,6 +14,7 @@ def check_dataframes_for_unidentical_columns(dict_of_dfs, reference_df_key=None)
     return {'reference_dataframe': reference_key,
             'dataframes_with_unmatching_columns': unmatching_columns}
 
+
 def diff_columns(list1, list2):
     set1 = set(list1)
     set2 = set(list2)
@@ -20,10 +22,11 @@ def diff_columns(list1, list2):
     diff2 = set2 - set1
     return diff1, diff2
 
+
 def convert_columns_to_float(df, columns_to_convert):
     """Helper function for changing objects or strings of type '23,67' to float"""
-    
+
     for column in columns_to_convert:
         df[column] = df[column].str.replace(',', '.').astype(float)
-    
+
     return df

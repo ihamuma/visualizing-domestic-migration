@@ -19,9 +19,12 @@ print(migration_between_regions_df.columns)
 with open('raw_data/clean_mapping_stat_fi_domestic_migration_data.json') as mf:
     mapping_dict = json.load(mf)
 
-migration_between_regions_df['Region of arrival descriptive'] = migration_between_regions_df['Region of arrival'].apply(lambda x: mapping_dict['Region of arrival'].get(x, np.nan))
-migration_between_regions_df['Region of departure descriptive'] = migration_between_regions_df['Region of departure'].apply(lambda x: mapping_dict['Region of departure'].get(x, np.nan))
-migration_between_regions_df['Origin descriptive'] = migration_between_regions_df['Origin'].apply(lambda x: mapping_dict['Origin'].get(x, np.nan))
+migration_between_regions_df['Region of arrival descriptive'] = migration_between_regions_df['Region of arrival'].apply(
+    lambda x: mapping_dict['Region of arrival'].get(x, np.nan))
+migration_between_regions_df['Region of departure descriptive'] = migration_between_regions_df['Region of departure'].apply(
+    lambda x: mapping_dict['Region of departure'].get(x, np.nan))
+migration_between_regions_df['Origin descriptive'] = migration_between_regions_df['Origin'].apply(
+    lambda x: mapping_dict['Origin'].get(x, np.nan))
 
 print(migration_between_regions_df.columns)
 print(migration_between_regions_df.head())

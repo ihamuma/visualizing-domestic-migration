@@ -9,32 +9,32 @@ def get_migration_data(url, json_query, age_ranges):
     migration_dfs = []
 
     for age in tqdm(age_ranges):
-            age_query = form_age_query(age)
-            json_query["query"].append(age_query)
-            json_data = stat_fi_api_request(url, json_query)
-            json_query["query"].pop()
-            migration_df = create_dataframe_from_stat_fi_format(json_data)
-            migration_dfs.append(migration_df)
-    
+        age_query = form_age_query(age)
+        json_query["query"].append(age_query)
+        json_data = stat_fi_api_request(url, json_query)
+        json_query["query"].pop()
+        migration_df = create_dataframe_from_stat_fi_format(json_data)
+        migration_dfs.append(migration_df)
+
     return pd.concat(migration_dfs)
 
 
 def form_age_query(age):
     return {
-            "code": "Ikä",
-            "selection": {
-                 "filter": "item",
-                 "values": [
-                      f"{age}"
-                    ]
-                }
-            } 
+        "code": "Ikä",
+        "selection": {
+                "filter": "item",
+                "values": [
+                    f"{age}"
+                ]
+        }
+    }
 
 
 def get_employment_data(url, json_query):
-     json_data = stat_fi_api_request(url, json_query)
-     employment_df = create_dataframe_from_stat_fi_format(json_data)
-     return employment_df
+    json_data = stat_fi_api_request(url, json_query)
+    employment_df = create_dataframe_from_stat_fi_format(json_data)
+    return employment_df
 
 
 def stat_fi_api_request(url, json_query):
@@ -58,6 +58,7 @@ def create_dataframe_from_stat_fi_format(json_data):
 
     return pd.DataFrame(data_points)
 
+
 def fix_dataframe_dtypes(df):
     if 'Origin' in df.columns:
         return df.astype({'Year': 'int64',
@@ -67,7 +68,7 @@ def fix_dataframe_dtypes(df):
                           'Sex': 'string',
                           'Age': 'string',
                           'Value': 'int64'
-                        })
+                          })
     else:
         return df.astype({'Year': 'int64',
                           'Area': 'string',
@@ -75,9 +76,10 @@ def fix_dataframe_dtypes(df):
                           'Sex': 'string',
                           'Value': 'int64'})
 
+
 def write_to_json_file(data, file_name):
     file_path = os.path.join('raw_data', file_name)
-    
+
     try:
         with open(file_path, 'w') as new_file:
             json.dump(data, new_file, indent=4)

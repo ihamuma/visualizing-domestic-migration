@@ -11,4 +11,4 @@ value_text_mapping = dict(zip(values, value_texts))
 
 file_path = os.path.join('processed_data', 'employment_data_mapping.json')
 with open(file_path, 'w') as json_file:
-        json.dump(value_text_mapping, json_file, indent=4)
+    json.dump(value_text_mapping, json_file, indent=4)

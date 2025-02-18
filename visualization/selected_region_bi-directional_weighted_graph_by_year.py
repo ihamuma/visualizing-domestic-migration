@@ -10,14 +10,17 @@ image_path = 'visualization/viz_resources/suomen-maakunnat-kartta-scaled-without
 image = Image.open(image_path)
 
 year = '2019'
-selected_regions = ['MK01', 'MK02', 'MK06', 
-                    'MK13', 'MK09', 'MK10', 
-                    'MK11', 'MK12', 'MK14', 
+selected_regions = ['MK01', 'MK02', 'MK06',
+                    'MK13', 'MK09', 'MK10',
+                    'MK11', 'MK12', 'MK14',
                     'MK18', 'MK19', 'MK21']
 
-migration_df = pd.read_parquet(f'processed_data/directional_graph_{year}.parquet')
-migration_df = migration_df[migration_df['Region of arrival'].isin(selected_regions)]
-migration_df = migration_df[migration_df['Region of departure'].isin(selected_regions)]
+migration_df = pd.read_parquet(
+    f'processed_data/directional_graph_{year}.parquet')
+migration_df = migration_df[migration_df['Region of arrival'].isin(
+    selected_regions)]
+migration_df = migration_df[migration_df['Region of departure'].isin(
+    selected_regions)]
 edges = edges_from_df(migration_df)
 
 G = nx.DiGraph()
@@ -27,7 +30,8 @@ G = nx.DiGraph()
 for u, v, w in edges:
     G.add_edge(v, u, weight=w)
 
-node_weights = {node: sum(d['weight'] for u, v, d in G.in_edges(node, data=True)) for node in G.nodes()}
+node_weights = {node: sum(d['weight'] for u, v, d in G.in_edges(
+    node, data=True)) for node in G.nodes()}
 
 node_sizes = [node_weights[node] * 0.01 for node in G.nodes()]
 
@@ -65,24 +69,25 @@ for u, v in G.edges():
         rad = 0.1
 
         edge_color = 'green' if G[u][v]['weight'] > G[v][u]['weight'] else 'red'
-        
-        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], 
-                               edge_color=edge_color, 
-                               width=G[u][v]['weight'] * 0.001, 
+
+        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)],
+                               edge_color=edge_color,
+                               width=G[u][v]['weight'] * 0.001,
                                connectionstyle=f'arc3,rad={rad}',
                                arrowsize=min(G[v][u]['weight'] * 0.01, 8))
-        nx.draw_networkx_edges(G, pos, edgelist=[(v, u)], 
-                               edge_color='green' if edge_color == 'red' else 'red', 
-                               width=G[v][u]['weight'] * 0.001, 
+        nx.draw_networkx_edges(G, pos, edgelist=[(v, u)],
+                               edge_color='green' if edge_color == 'red' else 'red',
+                               width=G[v][u]['weight'] * 0.001,
                                connectionstyle=f'arc3,rad={rad}',
                                arrowsize=min(G[v][u]['weight'] * 0.01, 8))
-        
+
         drawn_edges.add((u, v))
         drawn_edges.add((v, u))
     elif (u, v) not in drawn_edges:
         edge_color = 'green'
-        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], edge_color=edge_color, width=G[u][v]['weight'] * 0.001)
-        
+        nx.draw_networkx_edges(G, pos, edgelist=[(
+            u, v)], edge_color=edge_color, width=G[u][v]['weight'] * 0.001)
+
         drawn_edges.add((u, v))
 
 font_path = 'fonts/cmunrm.ttf'
@@ -90,18 +95,21 @@ fontManager.addfont(font_path)
 
 prop = FontProperties(fname=font_path)
 
-nx.draw_networkx_labels(G, pos, font_size=5, font_family='serif', font_color='red')
+nx.draw_networkx_labels(G, pos, font_size=5,
+                        font_family='serif', font_color='red')
 
-#edge_labels = {}
-#for u, v in G.edges():
+# edge_labels = {}
+# for u, v in G.edges():
 #    edge_labels[(u, v)] = f'{G[u][v]["weight"]}'
 #    if (v, u) in G.edges():
 #        edge_labels[(v, u)] = f'{G[v][u]["weight"]}'
 
-#nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos=0.3, fontproperties=prop)
-#nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos=0.7, fontproperties=prop)
+# nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos=0.3, fontproperties=prop)
+# nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos=0.7, fontproperties=prop)
 
-plt.title(f"Inter-regional migration {year}, limited regions", fontproperties=prop)
-plt.savefig(f'visualization/results/Selected Regions Overlayed Weighted Graph Migration {year}.png', dpi=300)
+plt.title(
+    f"Inter-regional migration {year}, limited regions", fontproperties=prop)
+plt.savefig(
+    f'visualization/results/Selected Regions Overlayed Weighted Graph Migration {year}.png', dpi=300)
 
 plt.show()
